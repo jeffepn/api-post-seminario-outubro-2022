@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Http\Resources\CommentResource;
+use App\Http\Resources\PostResource;
+use App\Http\Resources\UserResource;
 use App\Models\Comment;
 
 class CommentController extends Controller
@@ -40,5 +42,13 @@ class CommentController extends Controller
         $comment->delete();
 
         return response(["message" => "O comentário foi excluído com sucesso."]);
+    }
+
+    public function post(Comment $comment) {
+        return new PostResource($comment->post);
+    }
+
+    public function user(Comment $comment) {
+        return new UserResource($comment->user);
     }
 }

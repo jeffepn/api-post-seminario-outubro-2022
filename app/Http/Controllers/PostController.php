@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Http\Resources\CommentResource;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 
@@ -60,5 +61,10 @@ class PostController extends Controller
         $post->delete();
 
         return response(['message' => "O Post foi deletado com sucesso."]);
+    }
+
+    public function comments(Post $post)
+    {
+        return CommentResource::collection($post->comments);        
     }
 }

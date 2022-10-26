@@ -25,6 +25,7 @@ Route::delete('posts/{post}', 'App\Http\Controllers\PostController@destroy');
 */
 
 Route::apiResource('posts', PostController::class);
+Route::get('posts/{post}/comments', 'App\Http\Controllers\PostController@comments');
 /*
 Route::post('comments', 'App\Http\Controllers\CommentController@store');
 Route::get('comments/{comment}', 'App\Http\Controllers\CommentController@show');
@@ -33,3 +34,5 @@ Route::patch('comments/{comment}', 'App\Http\Controllers\CommentController@updat
 Route::delete('comments/{comment}', 'App\Http\Controllers\CommentController@destroy');
 */
 Route::apiResource('comments', CommentController::class);
+Route::get('comments/{comment}/post', 'App\Http\Controllers\CommentController@post');
+Route::get('comments/{comment}/user', 'App\Http\Controllers\CommentController@user');
