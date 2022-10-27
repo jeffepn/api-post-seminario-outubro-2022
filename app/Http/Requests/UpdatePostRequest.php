@@ -3,9 +3,15 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UpdatePostRequest extends FormRequest
 {
+    public function authorize()
+    {
+        return Gate::allows('user-can-create-post');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

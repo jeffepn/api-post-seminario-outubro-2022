@@ -8,6 +8,7 @@ use App\Http\Resources\CommentResource;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\UserResource;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
@@ -39,6 +40,9 @@ class CommentController extends Controller
 
     public function destroy(Comment $comment)
     {
+        if(!Gate::allows('user-can-edit-comment', [$comment])) {
+            abort(403);
+        }
         $comment->delete();
 
         return response(["message" => "O comentário foi excluído com sucesso."]);

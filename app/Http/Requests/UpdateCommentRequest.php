@@ -3,9 +3,15 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UpdateCommentRequest extends FormRequest
 {
+    public function authorize()
+    {
+        return Gate::allows('user-can-edit-comment', [$this->comment]);        
+    }
+
     public function rules()
     {
         return [

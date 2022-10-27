@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
@@ -16,23 +17,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*
-Route::post('posts', 'App\Http\Controllers\PostController@store');
-Route::get('posts/{post}', 'App\Http\Controllers\PostController@show');
-Route::get('posts', 'App\Http\Controllers\PostController@index');
-Route::patch('posts/{post}', 'App\Http\Controllers\PostController@update');
-Route::delete('posts/{post}', 'App\Http\Controllers\PostController@destroy');
-*/
+Route::middleware('auth:sanctum')->group(function() {
+    // Posts
+    
+    
+    // Comments
+    Route::apiResource('comments', CommentController::class);
+    Route::get('comments/{comment}/post', 'App\Http\Controllers\CommentController@post');
+    Route::get('comments/{comment}/user', 'App\Http\Controllers\CommentController@user');
+    // Users
+    Route::post('users', 'App\Http\Controllers\UserController@store');
+    Route::get('users/{user}', 'App\Http\Controllers\UserController@show');
+});
 
+// Posts
 Route::apiResource('posts', PostController::class);
 Route::get('posts/{post}/comments', 'App\Http\Controllers\PostController@comments');
-/*
-Route::post('comments', 'App\Http\Controllers\CommentController@store');
-Route::get('comments/{comment}', 'App\Http\Controllers\CommentController@show');
-Route::get('comments', 'App\Http\Controllers\CommentController@index');
-Route::patch('comments/{comment}', 'App\Http\Controllers\CommentController@update');
-Route::delete('comments/{comment}', 'App\Http\Controllers\CommentController@destroy');
-*/
-Route::apiResource('comments', CommentController::class);
-Route::get('comments/{comment}/post', 'App\Http\Controllers\CommentController@post');
-Route::get('comments/{comment}/user', 'App\Http\Controllers\CommentController@user');
+
+Route::post('login', [AuthController::class, 'login']);
+

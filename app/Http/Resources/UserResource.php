@@ -19,8 +19,9 @@ class UserResource extends JsonResource
             'type' => 'user',
             'attributes' => [
                 'name' => $this->name,
+                'type' => $this->type,
                 'email' => $this->email,
-                'email_verified_at' => $this->email_verified_at->format('d-m-Y H:i:s'),
+                'email_verified_at' => $this->email_verified_at?->format('d-m-Y H:i:s'),
                 'created_at' => $this->created_at->format('d-m-Y H:i:s'),
                 'updated_at' => $this->updated_at->format('d-m-Y H:i:s'),
             ]

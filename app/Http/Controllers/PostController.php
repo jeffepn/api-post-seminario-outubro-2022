@@ -10,9 +10,17 @@ use App\Models\Post;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')
+            ->only(['store', 'update', 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +34,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $post = Post::create($request->all());
-        
+
         $resource = new PostResource($post);
         $resource->additional(['message' => "O Post foi criado com sucesso."]);
         return $resource;
@@ -65,6 +73,6 @@ class PostController extends Controller
 
     public function comments(Post $post)
     {
-        return CommentResource::collection($post->comments);        
+        return CommentResource::collection($post->comments);
     }
 }
