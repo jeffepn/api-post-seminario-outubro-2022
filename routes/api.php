@@ -18,9 +18,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->group(function() {
-    // Posts
-    
-    
     // Comments
     Route::apiResource('comments', CommentController::class);
     Route::get('comments/{comment}/post', 'App\Http\Controllers\CommentController@post');
@@ -31,7 +28,7 @@ Route::middleware('auth:sanctum')->group(function() {
 });
 
 // Posts
-Route::apiResource('posts', PostController::class);
+Route::apiResource('posts', PostController::class)->middleware('meuGrupo');
 Route::get('posts/{post}/comments', 'App\Http\Controllers\PostController@comments');
 
 Route::post('login', [AuthController::class, 'login']);

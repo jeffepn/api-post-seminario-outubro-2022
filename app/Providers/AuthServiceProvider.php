@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
-
 use App\Policies\CommentPolicy;
 use App\Policies\PostPolicy;
 use App\Policies\UserPolicy;

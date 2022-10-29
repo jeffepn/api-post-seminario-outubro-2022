@@ -31,6 +31,30 @@ class PostController extends Controller
         return PostResource::collection(Post::all());
     }
 
+    public function list()
+    {        
+     
+        return view(
+            'post.index', 
+            [
+                'testVariable' => "Estou testando o <span class='text-danger'>front</span>",
+                'posts' => Post::paginate(10)
+            ]
+        );
+    }
+
+    public function create()
+    {        
+        return view('post.create');
+    }
+
+    public function register(StorePostRequest $request)
+    {
+        Post::create($request->all());
+       
+        return redirect()->back()->with('success', "O post foi criado com sucesso.");
+    }
+
     public function store(StorePostRequest $request)
     {
         $post = Post::create($request->all());

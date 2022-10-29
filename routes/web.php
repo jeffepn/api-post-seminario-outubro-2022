@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/', function () {
+Route::get('/', function () {
     return view('welcome');
-});*/
+})->name('home');
+
+Route::get('/listar-posts', [PostController::class, 'list'])->name('post.list');
+Route::get('/criar-post', [PostController::class, 'create'])->name('post.create');
+Route::post('/criar-post', [PostController::class, 'register'])->name('post.register');
